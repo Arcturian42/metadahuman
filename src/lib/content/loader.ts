@@ -63,6 +63,24 @@ export function fillName(text: string, firstName: string): string {
   return text.split("{{firstName}}").join(firstName);
 }
 
+/**
+ * Turn personalized template body ("{{firstName}}, your Life Path…") into generic
+ * second-person copy for the public SEO pages (no user context there).
+ */
+export function depersonalize(text: string): string {
+  const stripped = text
+    .split("{{firstName}}, ")
+    .join("")
+    .split("{{firstName}}")
+    .join("you");
+  return stripped.charAt(0).toUpperCase() + stripped.slice(1);
+}
+
+export const LIFE_PATH_KEYS = Object.keys(lifePathData as Record<string, unknown>);
+export const SUN_SIGN_KEYS = Object.keys(sunSignData as Record<string, unknown>);
+export const CHINESE_ANIMAL_KEYS = Object.keys(chineseAnimalData as Record<string, unknown>);
+export const PERSONAL_YEAR_KEYS = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+
 export function getLifePathTemplate(n: number): LifePathTemplate | undefined {
   return lifePaths[String(n)];
 }
