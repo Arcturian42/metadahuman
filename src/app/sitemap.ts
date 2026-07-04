@@ -9,7 +9,7 @@ import {
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
 
-  const staticRoutes = ["", "/form", "/faq", "/privacy", "/terms"].map((path) => ({
+  const staticRoutes = ["", "/form", "/faq", "/privacy", "/terms", "/disclaimer"].map((path) => ({
     url: `${base}${path}`,
     changeFrequency: "monthly" as const,
     priority: path === "" ? 1 : 0.6,
