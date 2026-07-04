@@ -34,9 +34,16 @@ export async function GET() {
       await prisma.$queryRaw`SELECT 1`;
       checks.databaseReachable = true;
     } catch (error) {
-      // First line only, truncated — surfaces "can't reach host" / auth issues
-      // without dumping a connection string (the password never appears here).
-      checks.databaseError = String((error as Error).message).split("\n")[0].slice(0, 200);
+      // Prisma error messages often start with blank lines, so take the first
+      // NON-EMPTY line — surfaces "can't reach host" / auth issues without
+      // dumping a connection string (the password never appears here).
+      const raw = String((error as Error)?.message ?? error);
+      const firstMeaningful =
+        raw
+          .split("\n")
+          .map((l) => l.trim())
+          .find(Boolean) ?? "Unknown database error";
+      checks.databaseError = firstMeaningful.slice(0, 300);
     }
   }
 
