@@ -270,7 +270,7 @@ export default async function ReportPage({
                     </tr>
                     <tr>
                       <td className="py-3 px-4 text-celestial-gold font-bold">3</td>
-                      <td className="py-3 px-4 text-soft-white">Soul Urge / Heart's Desire</td>
+                      <td className="py-3 px-4 text-soft-white">Soul Urge / Heart&apos;s Desire</td>
                       <td className="py-3 px-4 text-mist-gray">{report.soulUrgeNumber}</td>
                       <td className="py-3 px-4 text-lunar-gray">Vowels in full name</td>
                     </tr>
