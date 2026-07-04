@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Personal Metadata — dark-only theme.
+   Palette tokens mirror tailwind.config.ts and src/config/design-tokens.ts.
+   These CSS variables exist for contexts that can't use Tailwind classes
+   directly (react-pdf, @vercel/og, inline SVG). See docs/DESIGN_SYSTEM.md. */
+
+:root {
+  --color-bg-primary: #080b1a;
+  --color-bg-secondary: #11152b;
+  --color-surface-card: #171b35;
+  --color-surface-elevated: #20264a;
+  --color-text-primary: #f8f6f0;
+  --color-text-secondary: #b8b6c9;
+  --color-text-muted: #7e819c;
+  --color-accent-primary: #d8b76a;
+  --color-accent-secondary: #9b7cff;
+  --color-accent-emotional: #e7a6c8;
+  --color-success: #7dd9a5;
+  --color-warning: #f6c66a;
+  --color-error: #f87171;
+
+  --radius-button: 999px;
+  --radius-card: 24px;
+  --radius-input: 16px;
+  --radius-modal: 28px;
+
+  --shadow-card: 0 24px 80px rgba(0, 0, 0, 0.35);
+  --shadow-glow-cta: 0 0 32px rgba(216, 183, 106, 0.28);
+
+  color-scheme: dark;
+}
+
+@layer base {
+  body {
+    @apply bg-midnight text-soft-white;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #080b1a;
+}
+::-webkit-scrollbar-thumb {
+  background: #20264a;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #9b7cff;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}

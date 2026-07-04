@@ -1,0 +1,61 @@
+{
+  "categoryFraming": {
+    "expression": "What this number describes: the natural talents and abilities {{firstName}} expresses outward into the world.",
+    "soulUrge": "What this number describes: the inner desire driving {{firstName}}, often more private than what shows on the surface.",
+    "personality": "What this number describes: the first impression {{firstName}} tends to give before people know them well.",
+    "birthday": "What this number describes: one specific, added gift {{firstName}} carries alongside their Life Path.",
+    "maturity": "What this number describes: the direction {{firstName}} tends to grow into over the second half of life.",
+    "attitude": "What this number describes: {{firstName}}'s natural approach or coping style when facing a new situation.",
+    "personalYear": "What this number describes: the theme of the current year {{firstName}} is moving through."
+  },
+  "numbers": {
+    "1": {
+      "keywords": ["independence", "leadership", "initiative", "self-reliance"],
+      "coreMeaning": "A drive to lead, start things, and trust your own direction."
+    },
+    "2": {
+      "keywords": ["cooperation", "sensitivity", "diplomacy", "partnership"],
+      "coreMeaning": "An instinct for relationship, balance, and reading what's unspoken."
+    },
+    "3": {
+      "keywords": ["expression", "creativity", "communication", "joy"],
+      "coreMeaning": "A need to put things into words, image, or some outward form."
+    },
+    "4": {
+      "keywords": ["structure", "stability", "discipline", "foundation"],
+      "coreMeaning": "A preference for the solid, methodical path over the fast one."
+    },
+    "5": {
+      "keywords": ["freedom", "change", "versatility", "curiosity"],
+      "coreMeaning": "A pull toward movement, variety, and resisting anything that feels like a cage."
+    },
+    "6": {
+      "keywords": ["responsibility", "care", "harmony", "service"],
+      "coreMeaning": "A pull toward nurturing, fixing, and creating harmony for others."
+    },
+    "7": {
+      "keywords": ["analysis", "depth", "introspection", "meaning"],
+      "coreMeaning": "A search for what's underneath the surface, often pursued alone."
+    },
+    "8": {
+      "keywords": ["ambition", "power", "achievement", "structure"],
+      "coreMeaning": "A natural capacity to turn effort and resources into tangible results."
+    },
+    "9": {
+      "keywords": ["compassion", "idealism", "completion", "release"],
+      "coreMeaning": "A wide-angle compassion and a lesson in letting go of what's outgrown."
+    },
+    "11": {
+      "keywords": ["intuition", "inspiration", "sensitivity", "insight"],
+      "coreMeaning": "An intensified, more direct form of intuitive insight."
+    },
+    "22": {
+      "keywords": ["vision", "practicality", "scale", "discipline"],
+      "coreMeaning": "The rare combination of big vision and the discipline to build it."
+    },
+    "33": {
+      "keywords": ["compassion", "teaching", "healing", "service"],
+      "coreMeaning": "Compassion extended outward into teaching, healing, or mentoring."
+    }
+  }
+}

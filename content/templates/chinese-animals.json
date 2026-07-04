@@ -1,0 +1,74 @@
+{
+  "rat": {
+    "animal": "Rat",
+    "theme": "The Resourceful",
+    "body": "{{firstName}}, as a Rat in Chinese astrology, your natural energy is quick-thinking and resourceful. You likely spot an opportunity, a shortcut, or a solution before most people have finished stating the problem, and you adapt fast when circumstances shift. This makes you genuinely good in situations that reward improvisation. The pattern to watch is restlessness, a pull toward the next opportunity before the current one has fully paid off, or a habit of overthinking a decision from every angle instead of trusting your quick first read. Traditionally, Rats are seen as charming and sociable alongside their sharp thinking, using both wit and connection to move through the world.",
+    "keyTraits": ["resourceful", "quick-thinking", "adaptable", "restless"]
+  },
+  "ox": {
+    "animal": "Ox",
+    "theme": "The Steadfast",
+    "body": "{{firstName}}, as an Ox in Chinese astrology, your natural energy is steady and dependable. You likely prefer the tested, methodical path to a goal over a flashy shortcut, and you probably follow through on commitments long after the initial motivation has faded, which is rarer than it sounds. This makes you the person others build long-term plans around. The pattern to watch is stubbornness, holding a position past the point where the evidence has changed, or struggling to ask for help rather than simply enduring more than you need to. Traditionally, Oxen are seen as quietly strong rather than showy about their strength, trusted more for consistency than charisma.",
+    "keyTraits": ["dependable", "methodical", "patient", "stubborn"]
+  },
+  "tiger": {
+    "animal": "Tiger",
+    "theme": "The Bold",
+    "body": "{{firstName}}, as a Tiger in Chinese astrology, your natural energy is bold and confident. You likely move toward a challenge rather than away from it, and there's a natural intensity to how you pursue what matters to you. This makes you a compelling presence, someone people notice without you needing to seek that out. The pattern to watch is acting on impulse before thinking through the consequences, or clashing with authority simply because it is authority, not because it's actually wrong. Traditionally, Tigers are seen as natural leaders who inspire through courage and directness rather than through careful consensus-building.",
+    "keyTraits": ["bold", "confident", "intense", "impulsive"]
+  },
+  "rabbit": {
+    "animal": "Rabbit",
+    "theme": "The Peacemaker",
+    "body": "{{firstName}}, as a Rabbit in Chinese astrology, your natural energy is gentle and diplomatic. You likely have a strong instinct for keeping things calm and avoiding unnecessary conflict, along with a genuine appreciation for beauty, comfort, and grace in daily life. This makes you an easy, reassuring presence for people to be around. The pattern to watch is avoiding a necessary confrontation for so long that a small issue grows into a bigger one, or prioritizing comfort over a change that would actually serve you better. Traditionally, Rabbits are seen as refined and perceptive, reading a room's mood quickly and adjusting to keep the peace.",
+    "keyTraits": ["gentle", "diplomatic", "refined", "conflict-avoidant"]
+  },
+  "dragon": {
+    "animal": "Dragon",
+    "theme": "The Visionary",
+    "body": "{{firstName}}, as a Dragon in Chinese astrology, your natural energy is ambitious and larger than life. You likely think in terms of big goals rather than small, incremental ones, and you have a natural charisma that draws people toward whatever you're building. This makes you a compelling leader, often without trying to be one. The pattern to watch is impatience with the slow, unglamorous groundwork that big visions actually require, or expecting a level of confidence from others that not everyone can match. Traditionally, Dragons are seen as powerful and lucky, carrying an energy that others are drawn to align themselves with.",
+    "keyTraits": ["ambitious", "charismatic", "confident", "impatient"]
+  },
+  "snake": {
+    "animal": "Snake",
+    "theme": "The Enigma",
+    "body": "{{firstName}}, as a Snake in Chinese astrology, your natural energy is intuitive and private. You likely observe far more than you say out loud, forming a clear read on a person or situation well before you reveal what you've concluded. This gives you a genuine strategic advantage; you're rarely caught off guard. The pattern to watch is withholding so much that people around you struggle to know where they actually stand with you, or letting suspicion run ahead of the evidence. Traditionally, Snakes are seen as wise and elegant, moving deliberately rather than impulsively, and trusting their own quiet judgment over the crowd's.",
+    "keyTraits": ["intuitive", "private", "strategic", "guarded"]
+  },
+  "horse": {
+    "animal": "Horse",
+    "theme": "The Free Spirit",
+    "body": "{{firstName}}, as a Horse in Chinese astrology, your natural energy is independent and energetic. You likely need freedom of movement, literal or figurative, more than most people do, and you probably feel restless when life gets too routine or confined. This gives you real momentum once you're pointed at something you actually want. The pattern to watch is leaving a situation the moment it stops feeling exciting, even when patience would have paid off, or resisting commitment simply because it feels like a cage. Traditionally, Horses are seen as spirited and sociable, moving through life with an energy that's hard for others to keep pace with.",
+    "keyTraits": ["independent", "energetic", "restless", "spirited"]
+  },
+  "goat": {
+    "animal": "Goat",
+    "theme": "The Artist",
+    "body": "{{firstName}}, as a Goat (or Sheep) in Chinese astrology, your natural energy is gentle and creative. You likely have a strong aesthetic sense and a real empathy for the people around you, along with a preference for harmony over confrontation. This makes you a genuinely comforting presence, and often a talented one artistically. The pattern to watch is a tendency toward worry or self-doubt, especially about things outside your control, or relying on others to make decisions you're capable of making yourself. Traditionally, Goats are seen as kind and artistic, thriving in supportive environments where their sensitivity is treated as a strength rather than something to toughen up.",
+    "keyTraits": ["gentle", "creative", "empathetic", "worrier"]
+  },
+  "monkey": {
+    "animal": "Monkey",
+    "theme": "The Inventor",
+    "body": "{{firstName}}, as a Monkey in Chinese astrology, your natural energy is clever and endlessly curious. You likely enjoy solving problems for their own sake, and there's a playful, quick-witted quality to how you move through challenges that others might approach more heavily. This makes you both effective and, often, genuinely fun to be around. The pattern to watch is a restlessness that skips past the boring-but-necessary steps of a plan, or using humor to sidestep a conversation that actually needs a straight answer. Traditionally, Monkeys are seen as inventive and socially sharp, combining mental agility with a natural ability to read people.",
+    "keyTraits": ["clever", "curious", "playful", "restless"]
+  },
+  "rooster": {
+    "animal": "Rooster",
+    "theme": "The Perfectionist",
+    "body": "{{firstName}}, as a Rooster in Chinese astrology, your natural energy is precise and hardworking. You likely notice details that others miss and hold yourself to a high standard, often higher than you'd ask of anyone else. This makes you genuinely reliable and, often, the person whose work speaks for itself. The pattern to watch is being overly critical, of your own work or other people's, or struggling to feel satisfied even after a real accomplishment. Traditionally, Roosters are seen as confident and organized, direct in speech, with a strong sense of how things should be done properly.",
+    "keyTraits": ["precise", "hardworking", "confident", "critical"]
+  },
+  "dog": {
+    "animal": "Dog",
+    "theme": "The Loyalist",
+    "body": "{{firstName}}, as a Dog in Chinese astrology, your natural energy is loyal and honest. You likely have a strong internal sense of right and wrong, and once someone has earned your trust, you're genuinely steady for them, not the type to disappear when things get hard. This makes you a rare and valued kind of friend. The pattern to watch is a tendency toward worry, particularly about people you care about, or difficulty trusting a new situation until it's proven itself, even when it's genuinely safe. Traditionally, Dogs are seen as fair and protective, motivated more by loyalty and principle than by personal gain.",
+    "keyTraits": ["loyal", "honest", "protective", "anxious"]
+  },
+  "pig": {
+    "animal": "Pig",
+    "theme": "The Warmhearted",
+    "body": "{{firstName}}, as a Pig (or Boar) in Chinese astrology, your natural energy is warm and generous. You likely approach people with genuine goodwill and enjoy the simple pleasures of life, good company, good food, comfort, without needing to complicate them. This makes you an easy, warm presence for people to be around. The pattern to watch is being too trusting of people who haven't earned it, or avoiding a hard truth because it would disrupt the harmony you value. Traditionally, Pigs are seen as good-natured and diligent, quietly generous with their time and resources without expecting much in return.",
+    "keyTraits": ["warm", "generous", "easygoing", "trusting"]
+  }
+}

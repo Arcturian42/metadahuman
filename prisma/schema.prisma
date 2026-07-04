@@ -1,0 +1,74 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Report {
+  id              String   @id @default(cuid())
+
+  // Input
+  firstName       String
+  lastName        String?
+  birthDate       DateTime
+  birthTime       DateTime?
+  birthLocation   String?
+  birthLat        Float?
+  birthLng        Float?
+  email           String
+  marketingConsent Boolean @default(false)
+
+  // Calculated - Numerology
+  lifePathNumber      Int
+  expressionNumber    Int
+  soulUrgeNumber      Int
+  personalityNumber   Int
+  birthdayNumber      Int
+  maturityNumber      Int
+  attitudeNumber      Int
+  personalYear        Int
+
+  // Calculated - Western Astro
+  sunSign             String
+  sunElement          String
+  moonSign            String?
+  risingSign          String?
+
+  // Calculated - Chinese Astro
+  chineseAnimal       String
+  chineseElement      String
+  yinYang             String
+
+  // Human Design (V1)
+  hdType              String?
+  hdProfile           String?
+  hdAuthority         String?
+
+  // Generated content
+  content         Json
+  pdfUrl          String?
+
+  // Status
+  status          ReportStatus @default(PENDING)
+
+  // Analytics
+  viewedAt        DateTime?
+  pdfDownloadedAt DateTime?
+  sharedAt        DateTime?
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([email])
+  @@index([status])
+}
+
+enum ReportStatus {
+  PENDING
+  GENERATING
+  COMPLETED
+  FAILED
+}
