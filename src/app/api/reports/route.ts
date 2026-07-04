@@ -11,6 +11,18 @@ import {
   buildCyclesPrompt,
 } from "@/lib/ai/prompts";
 import { generateWithFallback } from "@/lib/ai/openai";
+import {
+  numerologySchema,
+  astroSchema,
+  synthesisSchema,
+  cyclesSchema,
+} from "@/lib/ai/schemas";
+import {
+  numerologyFallback,
+  astroFallback,
+  synthesisFallback,
+  cyclesFallback,
+} from "@/lib/ai/bridge";
 import { EmptyNameError } from "@/lib/calculations/normalize";
 
 // Report generation fans out 4 parallel AI calls; give the serverless function
@@ -66,38 +78,29 @@ export async function POST(req: NextRequest) {
       currentYear,
     };
 
-    // Generate AI content in parallel with fallbacks
+    // Generate AI content in parallel. Each call is schema-validated; on failure
+    // it falls back to on-brand text assembled from the content templates.
     const [numResult, astroResult, synthResult, cyclesResult] = await Promise.all([
-      generateWithFallback(buildNumerologyPrompt(ctx), {
-        title: `Life Path ${numerology.lifePath}`,
-        body: "Your numerology profile reveals unique patterns in your name and birth date.",
-        practicalPrompt: "Reflect on how your core number shows up in your daily decisions.",
-        note: "This is a symbolic reflection tool.",
-      }),
-      generateWithFallback(buildAstroPrompt(ctx), {
-        title: `Sun in ${western.sunSign}`,
-        body: `Your Sun sign in ${western.sunSign} suggests a core identity shaped by ${western.sunElement} energy.`,
-        reflectionQuestion: "How does your Sun sign express itself in your closest relationships?",
-      }),
-      generateWithFallback(buildSynthesisPrompt(ctx), {
-        essence: `You carry a unique blend of ${western.sunSign} energy and ${chinese.animal} spirit.`,
-        strengths: [
-          { title: "Intuitive Awareness", description: "You sense patterns others miss." },
-          { title: "Creative Expression", description: "You find unique ways to communicate." },
-          { title: "Resilient Spirit", description: "You adapt and grow through challenges." },
-        ],
-        growthAreas: [
-          { title: "Balance", invitation: "Explore how you balance independence with connection." },
-        ],
-        practices: [
-          { title: "Morning Reflection", description: "Spend 5 minutes journaling your intentions.", duration: "5 min", frequency: "Daily" },
-        ],
-      }),
-      generateWithFallback(buildCyclesPrompt(ctx), {
-        title: `Personal Year ${numerology.personalYear}`,
-        body: `This year invites you to explore the energy of ${numerology.personalYear}.`,
-        invitation: "Notice what themes keep appearing in your life right now.",
-      }),
+      generateWithFallback(
+        buildNumerologyPrompt(ctx),
+        numerologySchema,
+        numerologyFallback(numerology, data.firstName)
+      ),
+      generateWithFallback(
+        buildAstroPrompt(ctx),
+        astroSchema,
+        astroFallback(western, chinese, data.firstName)
+      ),
+      generateWithFallback(
+        buildSynthesisPrompt(ctx),
+        synthesisSchema,
+        synthesisFallback(numerology, western, chinese, data.firstName)
+      ),
+      generateWithFallback(
+        buildCyclesPrompt(ctx),
+        cyclesSchema,
+        cyclesFallback(numerology, data.firstName)
+      ),
     ]);
 
     // Build report content
@@ -108,7 +111,7 @@ export async function POST(req: NextRequest) {
           title: "Your Pythagorean Numerology Profile",
           subtitle: `Life Path ${numerology.lifePath}`,
           type: "text",
-          body: (numResult as any).body || "",
+          body: numResult.body || "",
           data: {
             numbers: {
               lifePath: numerology.lifePath,
@@ -119,7 +122,7 @@ export async function POST(req: NextRequest) {
               maturity: numerology.maturity,
               attitude: numerology.attitude,
             },
-            practicalPrompt: (numResult as any).practicalPrompt,
+            practicalPrompt: numResult.practicalPrompt,
           },
         },
         {
@@ -127,11 +130,11 @@ export async function POST(req: NextRequest) {
           title: "Your Western Astrology",
           subtitle: `Sun in ${western.sunSign}`,
           type: "text",
-          body: (astroResult as any).body || "",
+          body: astroResult.body || "",
           data: {
             sunSign: western.sunSign,
             sunElement: western.sunElement,
-            reflectionQuestion: (astroResult as any).reflectionQuestion,
+            reflectionQuestion: astroResult.reflectionQuestion,
           },
         },
         {
@@ -151,11 +154,11 @@ export async function POST(req: NextRequest) {
           title: "Your Symbolic Synthesis",
           subtitle: "A mirror of your patterns",
           type: "text",
-          body: (synthResult as any).essence || "",
+          body: synthResult.essence || "",
           data: {
-            strengths: (synthResult as any).strengths || [],
-            growthAreas: (synthResult as any).growthAreas || [],
-            practices: (synthResult as any).practices || [],
+            strengths: synthResult.strengths || [],
+            growthAreas: synthResult.growthAreas || [],
+            practices: synthResult.practices || [],
           },
         },
         {
@@ -163,17 +166,17 @@ export async function POST(req: NextRequest) {
           title: "Your Current Cycles",
           subtitle: `Personal Year ${numerology.personalYear}`,
           type: "text",
-          body: (cyclesResult as any).body || "",
+          body: cyclesResult.body || "",
           data: {
             personalYear: numerology.personalYear,
-            invitation: (cyclesResult as any).invitation,
+            invitation: cyclesResult.invitation,
           },
         },
       ],
-      summary: (synthResult as any).essence || "",
-      strengths: ((synthResult as any).strengths || []).map((s: any) => s.title),
-      growthAreas: ((synthResult as any).growthAreas || []).map((g: any) => g.title),
-      practicalTips: ((synthResult as any).practices || []).map((p: any) => p.title),
+      summary: synthResult.essence || "",
+      strengths: synthResult.strengths.map((s) => s.title),
+      growthAreas: synthResult.growthAreas.map((g) => g.title),
+      practicalTips: synthResult.practices.map((p) => p.title),
     };
 
     // Save to DB

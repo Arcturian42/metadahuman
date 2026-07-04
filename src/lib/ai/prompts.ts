@@ -1,4 +1,10 @@
 import type { NumerologyResult, WesternAstroResult, ChineseAstroResult } from "@/types";
+import {
+  numerologyGrounding,
+  astroGrounding,
+  synthesisGrounding,
+  cyclesGrounding,
+} from "./bridge";
 
 interface PromptContext {
   firstName: string;
@@ -7,6 +13,12 @@ interface PromptContext {
   chinese: ChineseAstroResult;
   currentYear: number;
 }
+
+// The model's job is to personalize and connect this pre-written grounding text
+// to the person's specific numbers — never to invent a new meaning (PRD §18,
+// CLAUDE.md non-negotiable #7).
+const GROUNDING_RULE =
+  "GROUNDING (personalize and connect this to the specific numbers above — do NOT invent new meanings, do NOT contradict the numbers):";
 
 export function buildNumerologyPrompt(ctx: PromptContext): string {
   return `You are a warm, insightful numerology writer. Write a personalized interpretation for ${ctx.firstName}.
@@ -20,6 +32,9 @@ NUMEROLOGY DATA:
 - Maturity: ${ctx.numerology.maturity}
 - Attitude: ${ctx.numerology.attitude}
 - Personal Year: ${ctx.numerology.personalYear}
+
+${GROUNDING_RULE}
+${numerologyGrounding(ctx.numerology, ctx.firstName)}
 
 INSTRUCTIONS:
 - Write 200-250 words in a warm, personal tone using "you" and "${ctx.firstName}".
@@ -42,6 +57,9 @@ DATA FOR ${ctx.firstName}:
 - Numerology: Life Path ${ctx.numerology.lifePath}, Expression ${ctx.numerology.expression}, Soul Urge ${ctx.numerology.soulUrge}
 - Western: Sun in ${ctx.western.sunSign} (${ctx.western.sunElement})
 - Chinese: ${ctx.chinese.animal} of ${ctx.chinese.element}, ${ctx.chinese.yinYang} energy
+
+${GROUNDING_RULE}
+${synthesisGrounding(ctx.numerology, ctx.western, ctx.chinese, ctx.firstName)}
 
 INSTRUCTIONS:
 - Write 350-400 words combining these systems into a coherent personality sketch.
@@ -68,6 +86,9 @@ DATA:
 - Element: ${ctx.western.sunElement}
 - Chinese Animal: ${ctx.chinese.animal} of ${ctx.chinese.element}
 
+${GROUNDING_RULE}
+${astroGrounding(ctx.western, ctx.chinese, ctx.firstName)}
+
 INSTRUCTIONS:
 - Write 200 words about their Sun sign essence.
 - Include: core traits, natural strengths, potential blind spots, one reflection question.
@@ -86,6 +107,9 @@ DATA FOR ${ctx.firstName}:
 - Life Path: ${ctx.numerology.lifePath}
 - Personal Year: ${ctx.numerology.personalYear}
 - Current Year: ${ctx.currentYear}
+
+${GROUNDING_RULE}
+${cyclesGrounding(ctx.numerology, ctx.firstName, ctx.currentYear)}
 
 INSTRUCTIONS:
 - Write 200 words about what their current Personal Year (${ctx.numerology.personalYear}) invites them to explore.
