@@ -1,0 +1,42 @@
+[
+  {
+    "question": "Is this free?",
+    "answer": "Yes. The report is completely free while the product is in early access. No payment information is ever requested."
+  },
+  {
+    "question": "Is this scientific?",
+    "answer": "No. Personal Metadata is a symbolic reflection and entertainment tool built on numerology and astrology. It doesn't make empirical or medical claims."
+  },
+  {
+    "question": "Do I need my birth time?",
+    "answer": "No. Birth time is optional. Providing it may unlock more detailed calculations, like Moon and Rising signs, in a future version."
+  },
+  {
+    "question": "Why do you ask for my email?",
+    "answer": "To send you your report and the link to access it again later. We don't sell it or use it for anything you haven't agreed to."
+  },
+  {
+    "question": "Can I delete my data?",
+    "answer": "Yes. You can request deletion of your report and personal data at any time."
+  },
+  {
+    "question": "Is this medical or psychological advice?",
+    "answer": "No. It should never replace guidance from a qualified doctor or therapist."
+  },
+  {
+    "question": "Does a human read my birth data?",
+    "answer": "No one manually reviews individual submissions. Your report is generated automatically. Your first name and calculated numbers are sent to an AI model to write the text; your raw birth date, birth time, and email aren't included in that step."
+  },
+  {
+    "question": "Can I generate a report for someone else?",
+    "answer": "You can, as long as you have their information and their okay to use it. The report will be personalized to whatever name and birth data you enter."
+  },
+  {
+    "question": "What if I don't know my exact birth time or place?",
+    "answer": "That's completely fine, those fields are optional. Your report will still include your full numerology profile, Sun sign, and Chinese astrology reading."
+  },
+  {
+    "question": "Will you email me again after I get my report?",
+    "answer": "Only if you checked the optional box for occasional updates. Otherwise, we'll only ever email you your report."
+  }
+]

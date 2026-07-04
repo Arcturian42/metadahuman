@@ -1,0 +1,86 @@
+{
+  "aries": {
+    "sign": "Aries",
+    "element": "Fire",
+    "theme": "The Spark",
+    "body": "{{firstName}}, with your Sun in Aries, your core energy runs on initiative. You tend to move first and reflect after, which can look like impatience from the outside but is really just your comfort with acting before every variable is known. There's real courage in this — you don't wait for certainty to start. The pattern to watch is a short fuse when things move slower than you'd like, or when you have to wait on someone else's timeline. Your Fire element gives you warmth and directness rather than subtlety; people generally know where they stand with you, which is rarer, and more valuable, than it sounds.",
+    "keyTraits": ["direct", "courageous", "impatient", "warm"]
+  },
+  "taurus": {
+    "sign": "Taurus",
+    "element": "Earth",
+    "theme": "The Anchor",
+    "body": "{{firstName}}, with your Sun in Taurus, your core energy is steady rather than fast. You build trust through consistency, showing up the same way, day after day, more than through grand gestures, and you likely have a strong pull toward comfort, quality, and things that last. This isn't laziness, whatever the stereotype says; it's a genuine preference for depth over speed. The pattern to watch is a resistance to change even past the point where change would clearly help. Your Earth element grounds you in the physical and the tangible; you likely trust what you can see, touch, or verify more than what you're simply told.",
+    "keyTraits": ["steady", "grounded", "loyal", "resistant to change"]
+  },
+  "gemini": {
+    "sign": "Gemini",
+    "element": "Air",
+    "theme": "The Connector",
+    "body": "{{firstName}}, with your Sun in Gemini, your core energy is curious and quick. You process the world through conversation and information, talking something through, reading about it, hearing different takes, more than through solitary reflection. This makes you genuinely adaptable and often the person who connects two ideas, or two people, that hadn't been connected before. The pattern to watch is scattering across too many threads to finish any one of them, or reaching for a clever answer before sitting with a harder, slower one. Your Air element favors thought and communication over instinct or emotion; you likely trust a good argument more than a gut feeling.",
+    "keyTraits": ["curious", "quick-witted", "adaptable", "scattered"]
+  },
+  "cancer": {
+    "sign": "Cancer",
+    "element": "Water",
+    "theme": "The Guardian",
+    "body": "{{firstName}}, with your Sun in Cancer, your core energy is protective and deeply attuned to emotional undercurrents. Home, in whatever form that takes for you, a place, a person, a routine, matters more to you than it might seem from the outside, and you likely have a strong instinct for who in a room needs looking after. There's real emotional intelligence here. The pattern to watch is retreating into your shell when you feel exposed, or holding onto old hurts longer than serves you. Your Water element makes you receptive and intuitive; you often know how someone feels before they've said a word.",
+    "keyTraits": ["protective", "intuitive", "nurturing", "guarded"]
+  },
+  "leo": {
+    "sign": "Leo",
+    "element": "Fire",
+    "theme": "The Radiant",
+    "body": "{{firstName}}, with your Sun in Leo, your core energy is warm and naturally expressive. You likely have a gift for making a room feel more alive just by being fully yourself in it, and a genuine generosity once someone has your loyalty. This isn't about needing attention for its own sake; it's closer to wanting what you create or care about to be seen clearly. The pattern to watch is taking a lack of recognition more personally than it deserves, or dimming your own presence to avoid seeming like too much. Your Fire element gives you warmth, confidence, and a natural stage presence, even in a room of two people.",
+    "keyTraits": ["warm", "expressive", "generous", "proud"]
+  },
+  "virgo": {
+    "sign": "Virgo",
+    "element": "Earth",
+    "theme": "The Craftsperson",
+    "body": "{{firstName}}, with your Sun in Virgo, your core energy is precise and improvement-minded. You likely notice the detail that's slightly off before anyone else does, and you have a genuine talent for making something, a project, a system, a piece of work, measurably better. This is real craftsmanship, not nitpicking. The pattern to watch is turning that same precision inward until it becomes self-criticism, or feeling like nothing is ever quite finished enough to share. Your Earth element keeps you practical and detail-oriented; you likely trust a working system more than a good idea that hasn't been tested yet.",
+    "keyTraits": ["precise", "practical", "helpful", "self-critical"]
+  },
+  "libra": {
+    "sign": "Libra",
+    "element": "Air",
+    "theme": "The Balancer",
+    "body": "{{firstName}}, with your Sun in Libra, your core energy seeks balance, in relationships, in a room, in a decision with more than one reasonable side. You likely have a genuine talent for seeing multiple perspectives fairly, which makes you a natural mediator, though it can also make simple decisions take longer than they need to. There's real fairness in how you move through the world. The pattern to watch is avoiding conflict so consistently that your own preference gets lost in the process. Your Air element favors harmony and social connection; you likely feel most yourself in the context of a relationship rather than in isolation.",
+    "keyTraits": ["fair-minded", "diplomatic", "relational", "indecisive"]
+  },
+  "scorpio": {
+    "sign": "Scorpio",
+    "element": "Water",
+    "theme": "The Depth-Diver",
+    "body": "{{firstName}}, with your Sun in Scorpio, your core energy runs deep rather than wide. You're drawn to what's underneath the surface, the real motive, the unspoken feeling, and you likely have little patience for small talk or surface-level relationships. This intensity can be magnetic to some people and unsettling to others, simply because you notice more than most are used to being noticed. The pattern to watch is guarding yourself so tightly that real closeness struggles to get in, even when you want it to. Your Water element makes you emotionally perceptive and private; you likely reveal yourself slowly, and only once trust has been earned.",
+    "keyTraits": ["intense", "perceptive", "private", "transformative"]
+  },
+  "sagittarius": {
+    "sign": "Sagittarius",
+    "element": "Fire",
+    "theme": "The Wanderer",
+    "body": "{{firstName}}, with your Sun in Sagittarius, your core energy is expansive and freedom-seeking. You're likely drawn to the bigger question over the small detail, and to new experiences, a place, an idea, a belief system, over the familiar one. There's real optimism here, and an honesty that can be refreshing or a little blunt depending on who's hearing it. The pattern to watch is promising more than you can follow through on in the excitement of the moment, or moving on from something the instant it stops feeling new. Your Fire element gives you enthusiasm and directness; you'd generally rather have the honest answer than the comfortable one.",
+    "keyTraits": ["adventurous", "optimistic", "blunt", "restless"]
+  },
+  "capricorn": {
+    "sign": "Capricorn",
+    "element": "Earth",
+    "theme": "The Strategist",
+    "body": "{{firstName}}, with your Sun in Capricorn, your core energy is disciplined and long-term in its thinking. You likely take the slow, structural path toward a goal rather than looking for a shortcut, and there's a seriousness to how you approach responsibility that people notice, even early in life. This makes you genuinely reliable in ways that compound over time. The pattern to watch is measuring your own worth too heavily by achievement or status, or struggling to let yourself rest without feeling like you're falling behind. Your Earth element keeps you practical and results-oriented; you likely trust a plan you can execute over an inspiring idea you can't yet.",
+    "keyTraits": ["disciplined", "ambitious", "responsible", "guarded"]
+  },
+  "aquarius": {
+    "sign": "Aquarius",
+    "element": "Air",
+    "theme": "The Original",
+    "body": "{{firstName}}, with your Sun in Aquarius, your core energy is independent and future-oriented. You likely think in terms of systems and ideas more than personal, individual concerns, and you may feel more comfortable being the exception to a rule than following it just because it's there. There's real originality in how you see things. The pattern to watch is detaching from your own feelings, or other people's, in favor of the bigger, more abstract picture; connection can start to feel optional rather than necessary. Your Air element favors ideas and independence; you likely value being understood for your thinking more than for how you feel.",
+    "keyTraits": ["independent", "original", "idealistic", "detached"]
+  },
+  "pisces": {
+    "sign": "Pisces",
+    "element": "Water",
+    "theme": "The Dreamer",
+    "body": "{{firstName}}, with your Sun in Pisces, your core energy is imaginative and deeply empathetic. You likely absorb the emotional tone of a room or a relationship without trying to, and you may process a lot of life through imagination, art, or some other less literal channel. This gives you a genuine gift for empathy and creative thinking. The pattern to watch is losing track of where you end and someone else's feelings begin, or escaping into imagination when a situation actually needs a direct, practical response. Your Water element makes you receptive and intuitive; you likely feel your way through a decision more than you reason your way through it.",
+    "keyTraits": ["empathetic", "imaginative", "sensitive", "avoidant"]
+  }
+}
