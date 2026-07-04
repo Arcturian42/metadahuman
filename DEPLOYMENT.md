@@ -37,8 +37,14 @@ pooler** and add `?pgbouncer=true` (required so Prisma disables prepared
 statements, which pgbouncer transaction mode doesn't support):
 
 ```
-postgresql://postgres.<ref>:<password>@aws-<n>-<region>.pooler.supabase.com:6543/postgres?pgbouncer=true
+postgresql://postgres.<ref>:<password>@aws-<n>-<region>.pooler.supabase.com:6543/postgres?pgbouncer=true&connection_limit=1
 ```
+
+`?pgbouncer=true` is **required** or `prisma.report.create` fails with Postgres
+`42P05: prepared statement "s0" already exists` — note a bare `SELECT 1` (what
+`/api/health` runs) can still succeed without it, so the health check passing does
+**not** prove the flag is set. `&connection_limit=1` avoids pool exhaustion on
+serverless.
 
 Keep the **direct** URL only for one-off migrations (`prisma db push`).
 
