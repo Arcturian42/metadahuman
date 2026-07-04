@@ -20,6 +20,7 @@ export default function SummaryPage() {
   const [formData, setFormData] = useState<FormData | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const stored = sessionStorage.getItem('pm_form_data');
@@ -44,6 +45,7 @@ export default function SummaryPage() {
     : lifePath;
 
   const handleGenerate = async () => {
+    setError(null);
     setIsGenerating(true);
 
     // Simulate progress
@@ -67,7 +69,12 @@ export default function SummaryPage() {
       clearInterval(interval);
       setProgress(100);
 
-      if (!response.ok) throw new Error("Failed to create report");
+      if (!response.ok) {
+        const body = await response.json().catch(() => null);
+        throw new Error(
+          body?.error || "We couldn't generate your report right now. Please try again."
+        );
+      }
 
       const data = await response.json();
 
@@ -75,11 +82,14 @@ export default function SummaryPage() {
       setTimeout(() => {
         router.push(`/report/${data.id}`);
       }, 800);
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
       clearInterval(interval);
       setIsGenerating(false);
       setProgress(0);
+      setError(
+        err instanceof Error ? err.message : "Something went wrong. Please try again."
+      );
     }
   };
 
@@ -183,13 +193,20 @@ export default function SummaryPage() {
               Not scientific, medical, or professional advice.
             </p>
 
+            {/* Error message */}
+            {error && (
+              <div className="mb-4 p-4 bg-soft-red/10 border border-soft-red/30 rounded-card">
+                <p className="text-soft-red text-sm text-center">{error}</p>
+              </div>
+            )}
+
             {/* CTA */}
             <button
               onClick={handleGenerate}
               className="w-full flex items-center justify-center px-6 py-4 bg-gradient-to-r from-celestial-gold to-warm-amber text-midnight font-bold rounded-btn text-lg hover:scale-[1.02] transition-transform shadow-glow"
             >
               <Sparkles className="w-5 h-5 mr-2" />
-              Generate my 20-40 page report
+              {error ? "Try again" : "Generate my 20-40 page report"}
               <ArrowRight className="w-5 h-5 ml-2" />
             </button>
 
