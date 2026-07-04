@@ -24,6 +24,7 @@ import {
   cyclesFallback,
 } from "@/lib/ai/bridge";
 import { EmptyNameError } from "@/lib/calculations/normalize";
+import { sendReportReadyEmail } from "@/lib/email/resend";
 
 // Report generation fans out 4 parallel AI calls; give the serverless function
 // headroom on Vercel (Node runtime, not edge). See docs/PRD.md §17.
@@ -207,8 +208,15 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    // TODO: Send email via Resend (V1)
-    // await sendReportEmail(report.id, data.email, content);
+    // Deliver the report by email. Non-blocking on failure — the web report is
+    // already saved, so a mail hiccup must not fail the request (PRD §20).
+    const appUrl = process.env.NEXT_PUBLIC_APP_URL || "";
+    const reportUrl = `${appUrl}/report/${report.id}`;
+    await sendReportReadyEmail({
+      to: data.email,
+      firstName: data.firstName,
+      reportUrl,
+    });
 
     return NextResponse.json({
       id: report.id,

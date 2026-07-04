@@ -1,8 +1,32 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { formatDate } from "@/lib/utils";
-import { Download, Share2, Sparkles, ArrowLeft, Star, BookOpen, Flame, Droplets, Mountain, Wind } from "lucide-react";
+import { Sparkles, ArrowLeft, Star, BookOpen, Flame, Droplets, Mountain, Wind } from "lucide-react";
 import Link from "next/link";
+import { ReportActions } from "@/components/report/report-actions";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  const report = await prisma.report.findUnique({ where: { id: params.id } });
+  if (!report) return { title: "Report — Personal Metadata" };
+  const title = `${report.firstName}'s Personal Metadata`;
+  const description = `${report.firstName}'s free symbolic self-reflection report — numerology, Western astrology, and Chinese astrology.`;
+  const ogImage = `/api/reports/${report.id}/og`;
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      images: [{ url: ogImage, width: 1080, height: 1080 }],
+    },
+    twitter: { card: "summary_large_image", title, description, images: [ogImage] },
+  };
+}
 
 export default async function ReportPage({
   params,
@@ -48,16 +72,7 @@ export default async function ReportPage({
             <ArrowLeft className="w-5 h-5 mr-2" />
             <span className="text-sm">Personal Metadata</span>
           </Link>
-          <div className="flex items-center gap-3">
-            <button className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-btn text-sm text-soft-white hover:bg-white/10 transition-colors">
-              <Share2 className="w-4 h-4" />
-              <span className="hidden sm:inline">Share</span>
-            </button>
-            <button className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-celestial-gold to-warm-amber text-midnight font-semibold rounded-btn text-sm hover:scale-[1.02] transition-transform">
-              <Download className="w-4 h-4" />
-              <span className="hidden sm:inline">Download PDF</span>
-            </button>
-          </div>
+          <ReportActions reportId={report.id} firstName={report.firstName} variant="header" />
         </div>
       </header>
 
@@ -315,15 +330,8 @@ export default async function ReportPage({
               medical, psychological, legal, financial, or professional advice. Use it
               as a mirror for self-exploration, not as a definitive guide.
             </p>
-            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-              <button className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-celestial-gold to-warm-amber text-midnight font-semibold rounded-btn hover:scale-[1.02] transition-transform">
-                <Download className="w-4 h-4" />
-                Download PDF
-              </button>
-              <button className="flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/10 text-soft-white rounded-btn hover:bg-white/10 transition-colors">
-                <Share2 className="w-4 h-4" />
-                Share my report
-              </button>
+            <div className="mt-8">
+              <ReportActions reportId={report.id} firstName={report.firstName} variant="footer" />
             </div>
             <p className="mt-6 text-xs text-lunar-gray">
               Want to explore more? Generate a report for someone you care about.
