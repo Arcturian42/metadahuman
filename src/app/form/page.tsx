@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, ChevronLeft, Sparkles, Shield } from "lucide-react";
+import { track } from "@/lib/analytics";
 
 const formSchema = z.object({
   firstName: z.string().min(1, "First name is required").max(50),
@@ -37,6 +38,10 @@ export default function FormPage() {
   const [formData, setFormData] = useState<Partial<FormData>>({});
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    track("form_start");
+  }, []);
 
   const updateField = (field: keyof FormData, value: string | boolean) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -83,6 +88,7 @@ export default function FormPage() {
     setIsSubmitting(true);
 
     try {
+      track("form_complete");
       sessionStorage.setItem('pm_form_data', JSON.stringify(formData));
       router.push(`/summary`);
     } catch (error) {

@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Download, Share2, Check } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Download, Share2, Check, Trash2 } from "lucide-react";
+import { track } from "@/lib/analytics";
 
 interface ReportActionsProps {
   reportId: string;
@@ -15,12 +17,15 @@ interface ReportActionsProps {
  * - Share → native share sheet where available, else copy-link fallback
  */
 export function ReportActions({ reportId, firstName, variant = "header" }: ReportActionsProps) {
+  const router = useRouter();
   const [copied, setCopied] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   const shareUrl = typeof window !== "undefined" ? window.location.href : "";
   const pdfUrl = `/api/reports/${reportId}/pdf`;
 
   const handleShare = async () => {
+    track("report_share");
     const shareData = {
       title: `${firstName}'s Personal Metadata`,
       text: `${firstName}'s free symbolic self-reflection report.`,
@@ -43,22 +48,47 @@ export function ReportActions({ reportId, firstName, variant = "header" }: Repor
     }
   };
 
+  const handleDelete = async () => {
+    if (!window.confirm("Delete this report and its data permanently? This can't be undone.")) {
+      return;
+    }
+    setDeleting(true);
+    try {
+      await fetch(`/api/reports/${reportId}`, { method: "DELETE" });
+      track("report_delete");
+      router.push("/");
+    } catch {
+      setDeleting(false);
+    }
+  };
+
   if (variant === "footer") {
     return (
-      <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a
-          href={pdfUrl}
-          className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-celestial-gold to-warm-amber text-midnight font-semibold rounded-btn hover:scale-[1.02] transition-transform"
-        >
-          <Download className="w-4 h-4" />
-          Download PDF
-        </a>
+      <div className="flex flex-col items-center gap-4">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a
+            href={pdfUrl}
+            onClick={() => track("report_pdf_download")}
+            className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-celestial-gold to-warm-amber text-midnight font-semibold rounded-btn hover:scale-[1.02] transition-transform"
+          >
+            <Download className="w-4 h-4" />
+            Download PDF
+          </a>
+          <button
+            onClick={handleShare}
+            className="flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/10 text-soft-white rounded-btn hover:bg-white/10 transition-colors"
+          >
+            {copied ? <Check className="w-4 h-4 text-soft-emerald" /> : <Share2 className="w-4 h-4" />}
+            {copied ? "Link copied" : "Share my report"}
+          </button>
+        </div>
         <button
-          onClick={handleShare}
-          className="flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/10 text-soft-white rounded-btn hover:bg-white/10 transition-colors"
+          onClick={handleDelete}
+          disabled={deleting}
+          className="flex items-center gap-2 text-xs text-lunar-gray hover:text-soft-red transition-colors disabled:opacity-50"
         >
-          {copied ? <Check className="w-4 h-4 text-soft-emerald" /> : <Share2 className="w-4 h-4" />}
-          {copied ? "Link copied" : "Share my report"}
+          <Trash2 className="w-3.5 h-3.5" />
+          {deleting ? "Deleting…" : "Delete this report & my data"}
         </button>
       </div>
     );
@@ -75,6 +105,7 @@ export function ReportActions({ reportId, firstName, variant = "header" }: Repor
       </button>
       <a
         href={pdfUrl}
+        onClick={() => track("report_pdf_download")}
         className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-celestial-gold to-warm-amber text-midnight font-semibold rounded-btn text-sm hover:scale-[1.02] transition-transform"
       >
         <Download className="w-4 h-4" />

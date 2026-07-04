@@ -5,6 +5,7 @@ import { formatDate } from "@/lib/utils";
 import { Sparkles, ArrowLeft, Star, BookOpen, Flame, Droplets, Mountain, Wind } from "lucide-react";
 import Link from "next/link";
 import { ReportActions } from "@/components/report/report-actions";
+import { TrackView } from "@/components/analytics/track-view";
 
 export async function generateMetadata({
   params,
@@ -62,6 +63,7 @@ export default async function ReportPage({
 
   return (
     <main className="min-h-screen bg-midnight">
+      <TrackView event="report_view" />
       {/* Sticky Header */}
       <header className="sticky top-0 z-50 bg-midnight/80 backdrop-blur-md border-b border-white/5">
         <div className="max-w-container mx-auto px-5 md:px-8 py-4 flex items-center justify-between">
@@ -191,7 +193,7 @@ export default async function ReportPage({
                           key={i}
                           className="p-4 bg-cosmic-slate rounded-card border border-white/5"
                         >
-                          <h4 className="text-celestial-gold font-semibold mb-1">
+                          <h4 className="text-soft-white font-semibold mb-1">
                             {s.title}
                           </h4>
                           <p className="text-mist-gray text-sm">{s.description}</p>
@@ -268,7 +270,7 @@ export default async function ReportPage({
                     </tr>
                     <tr>
                       <td className="py-3 px-4 text-celestial-gold font-bold">3</td>
-                      <td className="py-3 px-4 text-soft-white">Soul Urge / Heart's Desire</td>
+                      <td className="py-3 px-4 text-soft-white">Soul Urge / Heart&apos;s Desire</td>
                       <td className="py-3 px-4 text-mist-gray">{report.soulUrgeNumber}</td>
                       <td className="py-3 px-4 text-lunar-gray">Vowels in full name</td>
                     </tr>

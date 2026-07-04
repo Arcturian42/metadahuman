@@ -25,6 +25,8 @@ import {
 } from "@/lib/ai/bridge";
 import { EmptyNameError } from "@/lib/calculations/normalize";
 import { sendReportReadyEmail } from "@/lib/email/resend";
+import { rateLimit, clientKey } from "@/lib/rate-limit";
+import { getChineseAnimalTemplate, fillName } from "@/lib/content/loader";
 
 // Report generation fans out 4 parallel AI calls; give the serverless function
 // headroom on Vercel (Node runtime, not edge). See docs/PRD.md §17.
@@ -43,6 +45,15 @@ const createSchema = z.object({
 
 export async function POST(req: NextRequest) {
   try {
+    // Throttle report creation per client (anti-abuse / OpenAI cost, PRD §23).
+    const limit = rateLimit(`reports:${clientKey(req)}`, { limit: 5, windowMs: 60_000 });
+    if (!limit.allowed) {
+      return NextResponse.json(
+        { error: "Too many requests. Please wait a moment and try again." },
+        { status: 429, headers: { "Retry-After": String(limit.retryAfterSeconds) } }
+      );
+    }
+
     const body = await req.json();
     const parsed = createSchema.safeParse(body);
 
@@ -70,6 +81,7 @@ export async function POST(req: NextRequest) {
     );
     const western = calculateWesternAstro(data.birthDate, birthTime, birthLocation);
     const chinese = calculateChineseAstro(data.birthDate);
+    const chineseTemplate = getChineseAnimalTemplate(chinese.animal);
 
     const ctx = {
       firstName: data.firstName,
@@ -143,7 +155,10 @@ export async function POST(req: NextRequest) {
           title: "Your Chinese Astrology",
           subtitle: `${chinese.animal} of ${chinese.element}`,
           type: "text",
-          body: `Your Chinese zodiac animal is the ${chinese.animal}, associated with the element of ${chinese.element} and ${chinese.yinYang} energy.`,
+          // Use the rich pre-written animal template (personalized), not a one-liner.
+          body: chineseTemplate
+            ? `${fillName(chineseTemplate.body, data.firstName)}\n\nYour element is ${chinese.element} and your energy is ${chinese.yinYang}.`
+            : `Your Chinese zodiac animal is the ${chinese.animal}, associated with the element of ${chinese.element} and ${chinese.yinYang} energy.`,
           data: {
             animal: chinese.animal,
             element: chinese.element,

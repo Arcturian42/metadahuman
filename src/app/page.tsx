@@ -128,8 +128,51 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Ethics / Trust */}
+      {/* Sample report — conversion lever (DESIGN_SYSTEM §10.4) */}
       <section className="py-20 md:py-28 bg-deep-indigo">
+        <div className="max-w-container mx-auto px-5 md:px-8">
+          <h2 className="font-serif text-3xl md:text-4xl text-center mb-4">
+            A glimpse of what you&#39;ll read
+          </h2>
+          <p className="text-mist-gray text-center max-w-xl mx-auto mb-12">
+            Every report is written around your specific numbers and signs — here&#39;s the tone.
+          </p>
+          <div className="max-w-2xl mx-auto p-8 md:p-10 rounded-card bg-cosmic-slate border border-white/5 shadow-card">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-14 h-14 rounded-full bg-mystic-blue flex items-center justify-center">
+                <span className="text-2xl font-bold text-celestial-gold">7</span>
+              </div>
+              <div>
+                <p className="text-soft-white font-serif text-xl">Life Path 7</p>
+                <p className="text-lunar-gray text-sm">The Seeker</p>
+              </div>
+            </div>
+            <p className="text-mist-gray leading-relaxed mb-6">
+              &ldquo;Your profile suggests a strong tension between independence and emotional depth.
+              This can show up as a desire to create your own path while still seeking meaningful
+              connection — a pull toward meaning that surface-level answers can&#39;t satisfy.&rdquo;
+            </p>
+            <div className="p-4 bg-mystic-blue/40 rounded-card border border-aurora-violet/20">
+              <p className="text-sm text-aurora-violet font-semibold mb-1">Reflection prompt</p>
+              <p className="text-mist-gray text-sm italic">
+                Where in your life are you seeking a deeper answer instead of settling for the
+                surface one?
+              </p>
+            </div>
+          </div>
+          <div className="text-center mt-10">
+            <Link
+              href="/form"
+              className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-celestial-gold to-warm-amber text-midnight font-bold rounded-btn text-lg hover:scale-[1.02] transition-transform shadow-glow"
+            >
+              Create my own report
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Ethics / Trust */}
+      <section className="py-20 md:py-28">
         <div className="max-w-container mx-auto px-5 md:px-8 max-w-2xl text-center">
           <h2 className="font-serif text-3xl md:text-4xl mb-6">
             A symbolic mirror, not a prediction
@@ -164,6 +207,9 @@ export default function LandingPage() {
             </Link>
             <Link href="/terms" className="hover:text-soft-white transition-colors">
               Terms
+            </Link>
+            <Link href="/disclaimer" className="hover:text-soft-white transition-colors">
+              Disclaimer
             </Link>
             <Link href="/faq" className="hover:text-soft-white transition-colors">
               FAQ
