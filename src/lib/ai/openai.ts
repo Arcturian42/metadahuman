@@ -2,9 +2,18 @@ import OpenAI from "openai";
 import type { ZodSchema } from "zod";
 import { SYSTEM_PROMPT } from "./prompts";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+// Instantiate lazily. The OpenAI SDK throws when apiKey is missing/empty, and at
+// build time (Next.js "collecting page data") the env var isn't present — a
+// module-level client would crash the build. Creating it on first use keeps the
+// key requirement at request time, where a missing key is caught and falls back
+// to template content.
+let client: OpenAI | null = null;
+function getOpenAI(): OpenAI {
+  if (!client) {
+    client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+  }
+  return client;
+}
 
 /**
  * Generate one report section as validated JSON.
@@ -20,7 +29,7 @@ export async function generateSection<T>(
   retries = 2
 ): Promise<T> {
   try {
-    const response = await openai.chat.completions.create({
+    const response = await getOpenAI().chat.completions.create({
       model: "gpt-4o-mini",
       messages: [
         { role: "system", content: SYSTEM_PROMPT },
