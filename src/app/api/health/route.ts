@@ -34,16 +34,16 @@ export async function GET() {
       await prisma.$queryRaw`SELECT 1`;
       checks.databaseReachable = true;
     } catch (error) {
-      // Prisma error messages often start with blank lines, so take the first
-      // NON-EMPTY line — surfaces "can't reach host" / auth issues without
-      // dumping a connection string (the password never appears here).
+      // Collapse the whole Prisma message onto one line (its real "error: ..."
+      // cause sits a few lines below the generic "Invalid invocation" header).
+      // Passwords never appear in these messages.
       const raw = String((error as Error)?.message ?? error);
-      const firstMeaningful =
-        raw
-          .split("\n")
-          .map((l) => l.trim())
-          .find(Boolean) ?? "Unknown database error";
-      checks.databaseError = firstMeaningful.slice(0, 300);
+      const collapsed = raw
+        .split("\n")
+        .map((l) => l.trim())
+        .filter(Boolean)
+        .join(" ");
+      checks.databaseError = (collapsed || "Unknown database error").slice(0, 500);
     }
   }
 
