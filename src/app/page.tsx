@@ -85,7 +85,7 @@ export default function LandingPage() {
                 key={card.title}
                 className="p-6 rounded-card bg-cosmic-slate border border-white/5 hover:border-celestial-gold/30 transition-colors"
               >
-                <h3 className="font-serif text-xl text-celestial-gold mb-3">
+                <h3 className="font-serif text-xl text-soft-white mb-3">
                   {card.title}
                 </h3>
                 <p className="text-mist-gray text-sm leading-relaxed">
