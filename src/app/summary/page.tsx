@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { Sparkles, Mail, FileText, Clock, ArrowRight, CheckCircle2, Star, Zap } from "lucide-react";
+import { Sparkles, Mail, FileText, Clock, ArrowRight, CheckCircle2, Star, Zap, MailCheck } from "lucide-react";
+import Link from "next/link";
 
 interface FormData {
   firstName: string;
@@ -15,12 +16,28 @@ interface FormData {
   marketingConsent?: boolean;
 }
 
+interface ReportPreview {
+  lifePath: number;
+  lifePathTheme?: string;
+  sunSign: string;
+  chineseAnimal: string;
+  essence: string;
+  emailSent: boolean;
+}
+
+interface GenerateResult {
+  id: string;
+  reportUrl: string;
+  preview: ReportPreview;
+}
+
 export default function SummaryPage() {
   const router = useRouter();
   const [formData, setFormData] = useState<FormData | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
+  const [result, setResult] = useState<GenerateResult | null>(null);
 
   useEffect(() => {
     const stored = sessionStorage.getItem('pm_form_data');
@@ -78,9 +95,11 @@ export default function SummaryPage() {
 
       const data = await response.json();
 
-      // Small delay for UX
+      // Land on the "check your email" confirmation with an inline synthesis
+      // preview — never force-navigate straight into the full report page.
       setTimeout(() => {
-        router.push(`/report/${data.id}`);
+        setResult({ id: data.id, reportUrl: data.reportUrl, preview: data.preview });
+        setIsGenerating(false);
       }, 800);
     } catch (err) {
       console.error(err);
@@ -105,7 +124,64 @@ export default function SummaryPage() {
     <main className="min-h-screen bg-midnight flex flex-col">
       <div className="max-w-lg mx-auto w-full px-5 pt-12 pb-8 flex-1 flex flex-col">
 
-        {!isGenerating ? (
+        {result ? (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="text-center mb-8">
+              <div className="mx-auto mb-6 grid h-14 w-14 place-items-center rounded-full border border-soft-emerald/30 bg-mystic-blue text-soft-emerald">
+                <MailCheck className="w-6 h-6" />
+              </div>
+              <h1 className="font-serif text-3xl md:text-4xl text-soft-white mb-3">
+                Check your email, {formData.firstName}
+              </h1>
+              <p className="text-mist-gray text-lg leading-relaxed">
+                {result.preview.emailSent
+                  ? <>We just generated your report and sent it to <span className="text-celestial-gold">{formData.email}</span>.</>
+                  : "Your report is generated and saved — we couldn't confirm the email just went out, so use the link below too."}
+              </p>
+            </div>
+
+            {/* Synthesis preview */}
+            <div className="mb-8 p-6 bg-cosmic-slate rounded-card border border-white/10">
+              <p className="text-xs uppercase tracking-wider text-lunar-gray mb-4">
+                Here&#39;s what was created — a synthesis of your report
+              </p>
+              <div className="flex items-center gap-4 mb-4">
+                <div className="grid h-14 w-14 place-items-center rounded-full border border-celestial-gold/30 bg-mystic-blue flex-shrink-0">
+                  <span className="font-serif text-2xl font-bold text-celestial-gold">
+                    {result.preview.lifePath}
+                  </span>
+                </div>
+                <div>
+                  <p className="font-serif text-lg text-soft-white">
+                    Life Path {result.preview.lifePath}
+                    {result.preview.lifePathTheme ? ` — ${result.preview.lifePathTheme}` : ""}
+                  </p>
+                  <p className="text-xs text-lunar-gray">
+                    {result.preview.sunSign} · {result.preview.chineseAnimal}
+                  </p>
+                </div>
+              </div>
+              <p className="text-sm text-mist-gray leading-relaxed italic">
+                &ldquo;{result.preview.essence}&rdquo;
+              </p>
+            </div>
+
+            <Link
+              href={result.reportUrl}
+              className="w-full flex items-center justify-center px-6 py-4 bg-gradient-to-r from-celestial-gold to-warm-amber text-midnight font-bold rounded-btn text-lg hover:scale-[1.02] transition-transform shadow-glow"
+            >
+              View my full 20-40 page report
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </Link>
+            <p className="text-xs text-lunar-gray text-center mt-4">
+              Bookmark this page&#39;s link from your email — it&#39;s how you&#39;ll come back to your report.
+            </p>
+          </motion.div>
+        ) : !isGenerating ? (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

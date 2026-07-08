@@ -42,10 +42,15 @@ export default async function ReportPage({
     notFound();
   }
 
-  await prisma.report.update({
-    where: { id: params.id },
-    data: { viewedAt: new Date() },
-  });
+  // Analytics-only write — must never take the whole report page down with it.
+  try {
+    await prisma.report.update({
+      where: { id: params.id },
+      data: { viewedAt: new Date() },
+    });
+  } catch (error) {
+    console.error("Failed to record report view:", error);
+  }
 
   const content = report.content as any;
   const sections = content.sections || [];

@@ -26,7 +26,7 @@ import {
 import { EmptyNameError } from "@/lib/calculations/normalize";
 import { sendReportReadyEmail } from "@/lib/email/resend";
 import { rateLimit, clientKey } from "@/lib/rate-limit";
-import { getChineseAnimalTemplate, fillName } from "@/lib/content/loader";
+import { getChineseAnimalTemplate, getLifePathTemplate, fillName } from "@/lib/content/loader";
 
 // Report generation fans out 4 parallel AI calls; give the serverless function
 // headroom on Vercel (Node runtime, not edge). See docs/PRD.md §17.
@@ -227,16 +227,29 @@ export async function POST(req: NextRequest) {
     // already saved, so a mail hiccup must not fail the request (PRD §20).
     const appUrl = process.env.NEXT_PUBLIC_APP_URL || "";
     const reportUrl = `${appUrl}/report/${report.id}`;
-    await sendReportReadyEmail({
+    const emailResult = await sendReportReadyEmail({
       to: data.email,
       firstName: data.firstName,
       reportUrl,
     });
 
+    // A lightweight synthesis for the immediate post-submit confirmation screen —
+    // sent inline so that screen never has to re-fetch the report from the DB.
+    const lifePathTheme = getLifePathTemplate(numerology.lifePath)?.theme;
+    const preview = {
+      lifePath: numerology.lifePath,
+      lifePathTheme,
+      sunSign: western.sunSign,
+      chineseAnimal: chinese.animal,
+      essence: synthResult.essence,
+      emailSent: emailResult.sent,
+    };
+
     return NextResponse.json({
       id: report.id,
       status: "COMPLETED",
       reportUrl: `/report/${report.id}`,
+      preview,
     });
   } catch (error) {
     if (error instanceof EmptyNameError) {
