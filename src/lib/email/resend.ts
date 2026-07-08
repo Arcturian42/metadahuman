@@ -14,6 +14,19 @@ export interface ReportEmailParams {
   to: string;
   firstName: string;
   reportUrl: string; // absolute URL
+  /**
+   * Optional synthesis teaser. When present, the email shows the key results
+   * (Life Path, Sun sign, Chinese animal) and a short essence excerpt so it
+   * delivers value even before the click. All optional — the template degrades
+   * gracefully to a single-CTA email when omitted (PRD §20, DESIGN_SYSTEM §14).
+   */
+  preview?: {
+    lifePath?: number;
+    lifePathTheme?: string;
+    sunSign?: string;
+    chineseAnimal?: string;
+    essence?: string;
+  };
 }
 
 export async function sendReportReadyEmail(params: ReportEmailParams): Promise<

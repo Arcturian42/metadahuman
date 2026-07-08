@@ -227,15 +227,22 @@ export async function POST(req: NextRequest) {
     // already saved, so a mail hiccup must not fail the request (PRD §20).
     const appUrl = process.env.NEXT_PUBLIC_APP_URL || "";
     const reportUrl = `${appUrl}/report/${report.id}`;
+    const lifePathTheme = getLifePathTemplate(numerology.lifePath)?.theme;
     const emailResult = await sendReportReadyEmail({
       to: data.email,
       firstName: data.firstName,
       reportUrl,
+      preview: {
+        lifePath: numerology.lifePath,
+        lifePathTheme,
+        sunSign: western.sunSign,
+        chineseAnimal: chinese.animal,
+        essence: synthResult.essence,
+      },
     });
 
     // A lightweight synthesis for the immediate post-submit confirmation screen —
     // sent inline so that screen never has to re-fetch the report from the DB.
-    const lifePathTheme = getLifePathTemplate(numerology.lifePath)?.theme;
     const preview = {
       lifePath: numerology.lifePath,
       lifePathTheme,
