@@ -19,19 +19,19 @@ export function LegalDocument({ file }: { file: "disclaimer" | "privacy-policy" 
     .trim();
 
   return (
-    <main className="min-h-screen bg-midnight">
+    <main className="min-h-screen bg-ivory">
       <div className="max-w-container mx-auto px-5 md:px-8 py-12 md:py-20">
         <div className="max-w-2xl mx-auto">
-          <Link href="/" className="text-sm text-lunar-gray hover:text-soft-white transition-colors">
+          <Link href="/" className="text-sm text-ink-muted hover:text-ink transition-colors">
             ← Personal Metadata
           </Link>
           <article
-            className="prose prose-invert prose-lg mt-8 max-w-none
-              prose-headings:font-serif prose-headings:text-soft-white
-              prose-a:text-celestial-gold hover:prose-a:text-warm-amber
-              prose-strong:text-soft-white prose-p:text-mist-gray prose-li:text-mist-gray
-              prose-td:text-mist-gray prose-th:text-soft-white
-              prose-blockquote:text-lunar-gray prose-blockquote:border-aurora-violet/40"
+            className="prose prose-lg mt-8 max-w-none
+              prose-headings:font-serif prose-headings:text-ink
+              prose-a:text-antique-gold hover:prose-a:text-sanguine
+              prose-strong:text-ink prose-p:text-ink-soft prose-li:text-ink-soft
+              prose-td:text-ink-soft prose-th:text-ink
+              prose-blockquote:text-ink-muted prose-blockquote:border-sanguine/40"
           >
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
           </article>

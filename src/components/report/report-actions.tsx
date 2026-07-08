@@ -69,23 +69,23 @@ export function ReportActions({ reportId, firstName, variant = "header" }: Repor
           <a
             href={pdfUrl}
             onClick={() => track("report_pdf_download")}
-            className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-celestial-gold to-warm-amber text-midnight font-semibold rounded-btn hover:scale-[1.02] transition-transform"
+            className="flex items-center gap-2 px-6 py-3 bg-gold-cta-gradient text-ink font-semibold rounded-btn hover:scale-[1.02] transition-transform"
           >
             <Download className="w-4 h-4" />
             Download PDF
           </a>
           <button
             onClick={handleShare}
-            className="flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/10 text-soft-white rounded-btn hover:bg-white/10 transition-colors"
+            className="flex items-center gap-2 px-6 py-3 bg-white border border-ink/15 text-ink rounded-btn hover:bg-parchment transition-colors"
           >
-            {copied ? <Check className="w-4 h-4 text-soft-emerald" /> : <Share2 className="w-4 h-4" />}
+            {copied ? <Check className="w-4 h-4 text-sage" /> : <Share2 className="w-4 h-4" />}
             {copied ? "Link copied" : "Share my report"}
           </button>
         </div>
         <button
           onClick={handleDelete}
           disabled={deleting}
-          className="flex items-center gap-2 text-xs text-lunar-gray hover:text-soft-red transition-colors disabled:opacity-50"
+          className="flex items-center gap-2 text-xs text-ink-muted hover:text-red-700 transition-colors disabled:opacity-50"
         >
           <Trash2 className="w-3.5 h-3.5" />
           {deleting ? "Deleting…" : "Delete this report & my data"}
@@ -98,15 +98,15 @@ export function ReportActions({ reportId, firstName, variant = "header" }: Repor
     <div className="flex items-center gap-3">
       <button
         onClick={handleShare}
-        className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-btn text-sm text-soft-white hover:bg-white/10 transition-colors"
+        className="flex items-center gap-2 px-4 py-2 bg-white border border-ink/15 rounded-btn text-sm text-ink hover:bg-parchment transition-colors"
       >
-        {copied ? <Check className="w-4 h-4 text-soft-emerald" /> : <Share2 className="w-4 h-4" />}
+        {copied ? <Check className="w-4 h-4 text-sage" /> : <Share2 className="w-4 h-4" />}
         <span className="hidden sm:inline">{copied ? "Copied" : "Share"}</span>
       </button>
       <a
         href={pdfUrl}
         onClick={() => track("report_pdf_download")}
-        className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-celestial-gold to-warm-amber text-midnight font-semibold rounded-btn text-sm hover:scale-[1.02] transition-transform"
+        className="flex items-center gap-2 px-4 py-2 bg-gold-cta-gradient text-ink font-semibold rounded-btn text-sm hover:scale-[1.02] transition-transform"
       >
         <Download className="w-4 h-4" />
         <span className="hidden sm:inline">Download PDF</span>

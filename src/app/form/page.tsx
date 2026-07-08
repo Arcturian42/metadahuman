@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
 import { motion, AnimatePresence } from "framer-motion";
@@ -101,24 +102,34 @@ export default function FormPage() {
   const progress = (step / steps.length) * 100;
 
   return (
-    <main className="min-h-screen bg-midnight flex flex-col">
-      <div className="max-w-md mx-auto w-full px-5 pt-12 pb-8 flex-1 flex flex-col">
+    <main className="min-h-screen bg-ivory text-ink flex flex-col">
+      <header className="border-b border-ink/10 bg-ivory/85 backdrop-blur-md">
+        <div className="max-w-md mx-auto w-full px-5 py-4 flex justify-center">
+          <Link href="/" className="flex items-center gap-2">
+            <span className="grid h-7 w-7 place-items-center rounded-full border border-antique-gold/50 text-antique-gold">
+              <Sparkles className="h-3.5 w-3.5" />
+            </span>
+            <span className="font-serif text-base tracking-wide text-ink">Personal Metadata</span>
+          </Link>
+        </div>
+      </header>
+      <div className="max-w-md mx-auto w-full px-5 pt-10 pb-8 flex-1 flex flex-col">
         <div className="mb-8">
           <div className="flex items-center justify-between mb-4">
             <button
               onClick={handleBack}
               disabled={step === 1}
-              className="text-lunar-gray hover:text-soft-white disabled:opacity-0 transition-colors"
+              className="text-ink-muted hover:text-ink disabled:opacity-0 transition-colors"
             >
               <ChevronLeft className="w-6 h-6" />
             </button>
-            <span className="text-sm text-lunar-gray">
+            <span className="text-sm text-ink-muted">
               Step {step} of {steps.length}
             </span>
           </div>
-          <div className="h-1.5 bg-cosmic-slate rounded-full overflow-hidden">
+          <div className="h-1.5 bg-parchment rounded-full overflow-hidden">
             <motion.div
-              className="h-full bg-gradient-to-r from-celestial-gold to-aurora-violet"
+              className="h-full bg-gradient-to-r from-antique-gold to-sanguine"
               initial={{ width: 0 }}
               animate={{ width: `${progress}%` }}
               transition={{ duration: 0.3 }}
@@ -135,43 +146,43 @@ export default function FormPage() {
             transition={{ duration: 0.2 }}
             className="flex-1"
           >
-            <h1 className="font-serif text-2xl md:text-3xl text-soft-white mb-2">
+            <h1 className="font-serif text-2xl md:text-3xl text-ink mb-2">
               {steps[step - 1].title}
             </h1>
 
             {step === 1 && (
               <div className="space-y-6 mt-8">
                 <div>
-                  <label className="block text-sm text-mist-gray mb-2">
-                    First name <span className="text-rose-quartz">*</span>
+                  <label className="block text-sm text-ink-soft mb-2">
+                    First name <span className="text-sanguine">*</span>
                   </label>
                   <input
                     type="text"
                     value={formData.firstName || ""}
                     onChange={(e) => updateField("firstName", e.target.value)}
-                    className="w-full px-4 py-3 bg-cosmic-slate border border-white/10 rounded-input text-soft-white placeholder-lunar-gray focus:border-celestial-gold focus:outline-none transition-colors"
+                    className="w-full px-4 py-3 bg-white border border-ink/15 rounded-input text-ink placeholder-ink-muted focus:border-antique-gold focus:outline-none transition-colors"
                     placeholder="Emma"
                   />
                   {errors.firstName && (
-                    <p className="text-soft-red text-sm mt-1">{errors.firstName}</p>
+                    <p className="text-red-700 text-sm mt-1">{errors.firstName}</p>
                   )}
                 </div>
                 <div>
-                  <label className="block text-sm text-mist-gray mb-2">
-                    Last name <span className="text-rose-quartz">*</span>
-                    <span className="text-lunar-gray ml-1 font-normal">(required for Pythagorean numerology)</span>
+                  <label className="block text-sm text-ink-soft mb-2">
+                    Last name <span className="text-sanguine">*</span>
+                    <span className="text-ink-muted ml-1 font-normal">(required for Pythagorean numerology)</span>
                   </label>
                   <input
                     type="text"
                     value={formData.lastName || ""}
                     onChange={(e) => updateField("lastName", e.target.value)}
-                    className="w-full px-4 py-3 bg-cosmic-slate border border-white/10 rounded-input text-soft-white placeholder-lunar-gray focus:border-celestial-gold focus:outline-none transition-colors"
+                    className="w-full px-4 py-3 bg-white border border-ink/15 rounded-input text-ink placeholder-ink-muted focus:border-antique-gold focus:outline-none transition-colors"
                     placeholder="Johnson"
                   />
                   {errors.lastName && (
-                    <p className="text-soft-red text-sm mt-1">{errors.lastName}</p>
+                    <p className="text-red-700 text-sm mt-1">{errors.lastName}</p>
                   )}
-                  <p className="text-xs text-lunar-gray mt-2">
+                  <p className="text-xs text-ink-muted mt-2">
                     Your full name is used to calculate your Expression, Soul Urge, and Personality numbers in the Pythagorean system.
                   </p>
                 </div>
@@ -181,19 +192,19 @@ export default function FormPage() {
             {step === 2 && (
               <div className="space-y-6 mt-8">
                 <div>
-                  <label className="block text-sm text-mist-gray mb-2">
-                    Birth date <span className="text-rose-quartz">*</span>
+                  <label className="block text-sm text-ink-soft mb-2">
+                    Birth date <span className="text-sanguine">*</span>
                   </label>
                   <input
                     type="date"
                     value={formData.birthDate || ""}
                     onChange={(e) => updateField("birthDate", e.target.value)}
-                    className="w-full px-4 py-3 bg-cosmic-slate border border-white/10 rounded-input text-soft-white focus:border-celestial-gold focus:outline-none transition-colors [color-scheme:dark]"
+                    className="w-full px-4 py-3 bg-white border border-ink/15 rounded-input text-ink focus:border-antique-gold focus:outline-none transition-colors [color-scheme:light]"
                   />
                   {errors.birthDate && (
-                    <p className="text-soft-red text-sm mt-1">{errors.birthDate}</p>
+                    <p className="text-red-700 text-sm mt-1">{errors.birthDate}</p>
                   )}
-                  <p className="text-xs text-lunar-gray mt-2">
+                  <p className="text-xs text-ink-muted mt-2">
                     Used to calculate your Life Path, Birthday Number, and Personal Year in the Pythagorean numerology system.
                   </p>
                 </div>
@@ -203,35 +214,35 @@ export default function FormPage() {
             {step === 3 && (
               <div className="space-y-6 mt-8">
                 <div>
-                  <label className="block text-sm text-mist-gray mb-2">
-                    Birth time <span className="text-lunar-gray">(optional)</span>
+                  <label className="block text-sm text-ink-soft mb-2">
+                    Birth time <span className="text-ink-muted">(optional)</span>
                   </label>
                   <input
                     type="time"
                     value={formData.birthTime || ""}
                     onChange={(e) => updateField("birthTime", e.target.value)}
-                    className="w-full px-4 py-3 bg-cosmic-slate border border-white/10 rounded-input text-soft-white focus:border-celestial-gold focus:outline-none transition-colors [color-scheme:dark]"
+                    className="w-full px-4 py-3 bg-white border border-ink/15 rounded-input text-ink focus:border-antique-gold focus:outline-none transition-colors [color-scheme:light]"
                   />
-                  <p className="text-xs text-lunar-gray mt-2">
+                  <p className="text-xs text-ink-muted mt-2">
                     Helps calculate Moon and Rising signs (added in future updates).
                   </p>
                 </div>
                 <div>
-                  <label className="block text-sm text-mist-gray mb-2">
-                    Birth location <span className="text-lunar-gray">(optional)</span>
+                  <label className="block text-sm text-ink-soft mb-2">
+                    Birth location <span className="text-ink-muted">(optional)</span>
                   </label>
                   <input
                     type="text"
                     value={formData.birthLocation || ""}
                     onChange={(e) => updateField("birthLocation", e.target.value)}
-                    className="w-full px-4 py-3 bg-cosmic-slate border border-white/10 rounded-input text-soft-white placeholder-lunar-gray focus:border-celestial-gold focus:outline-none transition-colors"
+                    className="w-full px-4 py-3 bg-white border border-ink/15 rounded-input text-ink placeholder-ink-muted focus:border-antique-gold focus:outline-none transition-colors"
                     placeholder="City, Country"
                   />
                 </div>
                 <div className="pt-4">
                   <button
                     onClick={handleSkip}
-                    className="text-sm text-lunar-gray hover:text-mist-gray underline"
+                    className="text-sm text-ink-muted hover:text-ink-soft underline"
                   >
                     Skip this step
                   </button>
@@ -242,20 +253,20 @@ export default function FormPage() {
             {step === 4 && (
               <div className="space-y-6 mt-8">
                 <div>
-                  <label className="block text-sm text-mist-gray mb-2">
-                    Email <span className="text-rose-quartz">*</span>
+                  <label className="block text-sm text-ink-soft mb-2">
+                    Email <span className="text-sanguine">*</span>
                   </label>
                   <input
                     type="email"
                     value={formData.email || ""}
                     onChange={(e) => updateField("email", e.target.value)}
-                    className="w-full px-4 py-3 bg-cosmic-slate border border-white/10 rounded-input text-soft-white placeholder-lunar-gray focus:border-celestial-gold focus:outline-none transition-colors"
+                    className="w-full px-4 py-3 bg-white border border-ink/15 rounded-input text-ink placeholder-ink-muted focus:border-antique-gold focus:outline-none transition-colors"
                     placeholder="emma@example.com"
                   />
                   {errors.email && (
-                    <p className="text-soft-red text-sm mt-1">{errors.email}</p>
+                    <p className="text-red-700 text-sm mt-1">{errors.email}</p>
                   )}
-                  <p className="text-xs text-lunar-gray mt-2">
+                  <p className="text-xs text-ink-muted mt-2">
                     Your complete 20-40 page Pythagorean numerology report will be sent to this address.
                   </p>
                 </div>
@@ -266,16 +277,16 @@ export default function FormPage() {
                       type="checkbox"
                       checked={formData.consentReflection === true}
                       onChange={(e) => updateField("consentReflection", e.target.checked)}
-                      className="mt-1 w-4 h-4 accent-celestial-gold"
+                      className="mt-1 w-4 h-4 accent-antique-gold"
                     />
-                    <span className="text-sm text-mist-gray leading-relaxed">
+                    <span className="text-sm text-ink-soft leading-relaxed">
                       I understand this is a reflection and entertainment tool, not
                       professional advice. It does not provide scientific, medical,
                       psychological, legal, financial, or professional guidance.
                     </span>
                   </label>
                   {errors.consentReflection && (
-                    <p className="text-soft-red text-sm">{errors.consentReflection}</p>
+                    <p className="text-red-700 text-sm">{errors.consentReflection}</p>
                   )}
 
                   <label className="flex items-start gap-3 cursor-pointer">
@@ -283,14 +294,14 @@ export default function FormPage() {
                       type="checkbox"
                       checked={formData.consentEmail === true}
                       onChange={(e) => updateField("consentEmail", e.target.checked)}
-                      className="mt-1 w-4 h-4 accent-celestial-gold"
+                      className="mt-1 w-4 h-4 accent-antique-gold"
                     />
-                    <span className="text-sm text-mist-gray leading-relaxed">
+                    <span className="text-sm text-ink-soft leading-relaxed">
                       I agree to receive my free report by email.
                     </span>
                   </label>
                   {errors.consentEmail && (
-                    <p className="text-soft-red text-sm">{errors.consentEmail}</p>
+                    <p className="text-red-700 text-sm">{errors.consentEmail}</p>
                   )}
 
                   <label className="flex items-start gap-3 cursor-pointer">
@@ -298,15 +309,15 @@ export default function FormPage() {
                       type="checkbox"
                       checked={formData.marketingConsent === true}
                       onChange={(e) => updateField("marketingConsent", e.target.checked)}
-                      className="mt-1 w-4 h-4 accent-celestial-gold"
+                      className="mt-1 w-4 h-4 accent-antique-gold"
                     />
-                    <span className="text-sm text-lunar-gray leading-relaxed">
+                    <span className="text-sm text-ink-muted leading-relaxed">
                       Send me occasional free insights and new features (optional).
                     </span>
                   </label>
                 </div>
 
-                <div className="flex items-center gap-2 text-xs text-lunar-gray pt-4">
+                <div className="flex items-center gap-2 text-xs text-ink-muted pt-4">
                   <Shield className="w-4 h-4" />
                   Your data is never sold. You can request deletion anytime.
                 </div>
@@ -316,14 +327,14 @@ export default function FormPage() {
         </AnimatePresence>
 
         {errors.submit && (
-          <p className="text-soft-red text-sm mt-4">{errors.submit}</p>
+          <p className="text-red-700 text-sm mt-4">{errors.submit}</p>
         )}
 
         <div className="mt-8">
           {step < steps.length ? (
             <button
               onClick={handleNext}
-              className="w-full flex items-center justify-center px-6 py-4 bg-gradient-to-r from-celestial-gold to-warm-amber text-midnight font-bold rounded-btn text-lg hover:scale-[1.02] transition-transform shadow-glow"
+              className="w-full flex items-center justify-center px-6 py-4 bg-gold-cta-gradient text-ink font-bold rounded-btn text-lg hover:scale-[1.02] transition-transform shadow-gold-glow"
             >
               Continue
               <ChevronRight className="w-5 h-5 ml-2" />
@@ -332,7 +343,7 @@ export default function FormPage() {
             <button
               onClick={handleSubmit}
               disabled={isSubmitting}
-              className="w-full flex items-center justify-center px-6 py-4 bg-gradient-to-r from-celestial-gold to-warm-amber text-midnight font-bold rounded-btn text-lg hover:scale-[1.02] transition-transform shadow-glow disabled:opacity-70"
+              className="w-full flex items-center justify-center px-6 py-4 bg-gold-cta-gradient text-ink font-bold rounded-btn text-lg hover:scale-[1.02] transition-transform shadow-gold-glow disabled:opacity-70"
             >
               {isSubmitting ? (
                 <>

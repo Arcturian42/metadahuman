@@ -30,7 +30,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${cormorant.variable}`}>
-      <body className="bg-midnight text-soft-white font-sans antialiased min-h-screen">
+      <body className="bg-ivory text-ink font-sans antialiased min-h-screen">
         {children}
         {plausibleDomain ? (
           <Script

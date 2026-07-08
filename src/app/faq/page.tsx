@@ -31,16 +31,16 @@ export default function FAQPage() {
   ];
 
   return (
-    <main className="min-h-screen bg-midnight py-20">
+    <main className="min-h-screen bg-ivory py-20">
       <div className="max-w-2xl mx-auto px-5 md:px-8">
-        <h1 className="font-serif text-3xl md:text-4xl text-soft-white mb-12">
+        <h1 className="font-serif text-3xl md:text-4xl text-ink mb-12">
           Frequently Asked Questions
         </h1>
         <div className="space-y-8">
           {faqs.map((faq, i) => (
-            <div key={i} className="p-6 bg-cosmic-slate rounded-card border border-white/5">
-              <h2 className="text-soft-white font-semibold text-lg mb-3">{faq.q}</h2>
-              <p className="text-mist-gray leading-relaxed">{faq.a}</p>
+            <div key={i} className="p-6 bg-white rounded-card border border-ink/10">
+              <h2 className="text-ink font-semibold text-lg mb-3">{faq.q}</h2>
+              <p className="text-ink-soft leading-relaxed">{faq.a}</p>
             </div>
           ))}
         </div>

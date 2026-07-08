@@ -2,10 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Personal Metadata — dark-only theme.
-   Palette tokens mirror tailwind.config.ts and src/config/design-tokens.ts.
-   These CSS variables exist for contexts that can't use Tailwind classes
-   directly (react-pdf, @vercel/og, inline SVG). See docs/DESIGN_SYSTEM.md. */
+/* Personal Metadata — light "Da Vinci codex" web theme.
+   The web app (landing, form, report, legal, SEO) renders on ivory/ink; the
+   variables below are the DARK share-asset palette kept only as a reference
+   mirror for react-pdf and @vercel/og (which read src/config/design-tokens.ts,
+   not these vars). See docs/DESIGN_SYSTEM.md and docs/memory.md. */
 
 :root {
   --color-bg-primary: #080b1a;
@@ -30,29 +31,29 @@
   --shadow-card: 0 24px 80px rgba(0, 0, 0, 0.35);
   --shadow-glow-cta: 0 0 32px rgba(216, 183, 106, 0.28);
 
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 @layer base {
   body {
-    @apply bg-midnight text-soft-white;
+    @apply bg-ivory text-ink;
     -webkit-font-smoothing: antialiased;
   }
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar — light codex tones */
 ::-webkit-scrollbar {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #080b1a;
+  background: #f3ecdc;
 }
 ::-webkit-scrollbar-thumb {
-  background: #20264a;
+  background: #cdbf9f;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #9b7cff;
+  background: #a97d33;
 }
 
 /* Smooth scroll */
