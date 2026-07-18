@@ -42,10 +42,12 @@ export default async function ReportPage({
     notFound();
   }
 
-  await prisma.report.update({
-    where: { id: params.id },
-    data: { viewedAt: new Date() },
-  });
+  await prisma.report
+    .update({
+      where: { id: params.id },
+      data: { viewedAt: new Date() },
+    })
+    .catch(() => {});
 
   const content = report.content as any;
   const sections = content.sections || [];
