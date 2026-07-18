@@ -41,9 +41,9 @@ postgresql://postgres.<ref>:<password>@aws-<n>-<region>.pooler.supabase.com:6543
 ```
 
 `?pgbouncer=true` is **required** or `prisma.report.create` fails with Postgres
-`42P05: prepared statement "s0" already exists` — note a bare `SELECT 1` (what
-`/api/health` runs) can still succeed without it, so the health check passing does
-**not** prove the flag is set. `&connection_limit=1` avoids pool exhaustion on
+`42P05: prepared statement "s0" already exists`. `/api/health` now exercises that
+exact write path inside a rolled-back transaction, so a passing health check
+**does** prove the flag is set. `&connection_limit=1` avoids pool exhaustion on
 serverless.
 
 Keep the **direct** URL only for one-off migrations (`prisma db push`).
@@ -57,7 +57,7 @@ from another branch if this is misconfigured.)
 ## 4. Verify the deployment: `/api/health`
 
 After deploying, open `https://<your-app>/api/health`. It returns booleans (never
-secret values) plus a real DB ping:
+secret values) plus a rolled-back DB write that exercises the real report-persistence path:
 
 ```json
 {
@@ -74,7 +74,9 @@ secret values) plus a real DB ping:
 ```
 
 - HTTP **200** → the app can generate and persist reports.
-- HTTP **503** → something's missing; read `checks` to see which.
+- HTTP **503** → database or required app URL is missing; read `checks` to see which.
+  `openaiConfigured` and `resendConfigured` are advisory — the app still works
+  without them.
 
 Then do the real end-to-end check: submit the form and generate a report.
 
