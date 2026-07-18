@@ -27,7 +27,7 @@ Read this file first, every session. It is the entry point. Read the linked docs
 
 ## Tech stack
 
-- Next.js 14 (App Router) + TypeScript
+- Next.js 15.5 (App Router) + TypeScript
 - Tailwind CSS + shadcn/ui — theme lives in `design/tailwind.config.ts` and `design/globals.css`; copy both into the real project's config on scaffold
 - PostgreSQL via Supabase, Prisma ORM — schema in `prisma/schema.prisma`
 - OpenAI GPT-4o-mini, JSON mode, for report text generation

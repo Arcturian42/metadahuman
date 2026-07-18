@@ -15,9 +15,10 @@ const SIZE = 1080; // 1080×1080 square share card (DESIGN_SYSTEM §14)
  */
 export async function GET(
   _req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const report = await prisma.report.findUnique({ where: { id: params.id } });
+  const { id } = await params;
+  const report = await prisma.report.findUnique({ where: { id } });
 
   if (!report) {
     return new Response("Not found", { status: 404 });

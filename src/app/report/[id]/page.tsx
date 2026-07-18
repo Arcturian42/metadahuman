@@ -10,9 +10,10 @@ import { TrackView } from "@/components/analytics/track-view";
 export async function generateMetadata({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }): Promise<Metadata> {
-  const report = await prisma.report.findUnique({ where: { id: params.id } });
+  const { id } = await params;
+  const report = await prisma.report.findUnique({ where: { id } });
   if (!report) return { title: "Report — Personal Metadata" };
   const title = `${report.firstName}'s Personal Metadata`;
   const description = `${report.firstName}'s free symbolic self-reflection report — numerology, Western astrology, and Chinese astrology.`;
@@ -32,10 +33,11 @@ export async function generateMetadata({
 export default async function ReportPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
+  const { id } = await params;
   const report = await prisma.report.findUnique({
-    where: { id: params.id },
+    where: { id },
   });
 
   if (!report || report.status !== "COMPLETED") {
@@ -43,7 +45,7 @@ export default async function ReportPage({
   }
 
   await prisma.report.update({
-    where: { id: params.id },
+    where: { id },
     data: { viewedAt: new Date() },
   });
 
