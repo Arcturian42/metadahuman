@@ -9,12 +9,13 @@ export function generateStaticParams() {
   return CHINESE_ANIMAL_KEYS.map((animal) => ({ animal }));
 }
 
-export function generateMetadata({ params }: { params: { animal: string } }): Metadata {
-  const t = getChineseAnimalTemplate(params.animal);
+export async function generateMetadata({ params }: { params: Promise<{ animal: string }> }): Promise<Metadata> {
+  const { animal } = await params;
+  const t = getChineseAnimalTemplate(animal);
   if (!t) return { title: "Chinese Zodiac — Personal Metadata" };
   const title = `${t.animal} — Chinese Zodiac Sign: ${t.theme} & Traits`;
   const description = `The ${t.animal}: ${t.keyTraits.join(", ")}.`;
-  const url = `${process.env.NEXT_PUBLIC_APP_URL || ""}/chinese-animal/${params.animal}`;
+  const url = `${process.env.NEXT_PUBLIC_APP_URL || ""}/chinese-animal/${animal}`;
   return {
     title,
     description,
@@ -23,10 +24,11 @@ export function generateMetadata({ params }: { params: { animal: string } }): Me
   };
 }
 
-export default function ChineseAnimalPage({ params }: { params: { animal: string } }) {
-  const t = getChineseAnimalTemplate(params.animal);
+export default async function ChineseAnimalPage({ params }: { params: Promise<{ animal: string }> }) {
+  const { animal } = await params;
+  const t = getChineseAnimalTemplate(animal);
   if (!t) notFound();
-  const url = `${process.env.NEXT_PUBLIC_APP_URL || ""}/chinese-animal/${params.animal}`;
+  const url = `${process.env.NEXT_PUBLIC_APP_URL || ""}/chinese-animal/${animal}`;
   return (
     <>
       <ArticleJsonLd

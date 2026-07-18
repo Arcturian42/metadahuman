@@ -14,12 +14,13 @@ function load(number: string) {
   return getCoreNumberMeaning(Number(number));
 }
 
-export function generateMetadata({ params }: { params: { number: string } }): Metadata {
-  const m = load(params.number);
+export async function generateMetadata({ params }: { params: Promise<{ number: string }> }): Promise<Metadata> {
+  const { number } = await params;
+  const m = load(number);
   if (!m) return { title: "Personal Year — Personal Metadata" };
-  const title = `Personal Year ${params.number}: Meaning & Theme`;
+  const title = `Personal Year ${number}: Meaning & Theme`;
   const description = m.coreMeaning;
-  const url = `${process.env.NEXT_PUBLIC_APP_URL || ""}/personal-year/${params.number}`;
+  const url = `${process.env.NEXT_PUBLIC_APP_URL || ""}/personal-year/${number}`;
   return {
     title,
     description,
@@ -28,21 +29,22 @@ export function generateMetadata({ params }: { params: { number: string } }): Me
   };
 }
 
-export default function PersonalYearPage({ params }: { params: { number: string } }) {
-  const m = load(params.number);
+export default async function PersonalYearPage({ params }: { params: Promise<{ number: string }> }) {
+  const { number } = await params;
+  const m = load(number);
   if (!m) notFound();
-  const url = `${process.env.NEXT_PUBLIC_APP_URL || ""}/personal-year/${params.number}`;
-  const body = `A Personal Year ${params.number} tends to carry a recurring theme: ${m.coreMeaning} It's an invitation to explore that energy through the year — a lens for reflection, not a fixed forecast. Your Personal Year shifts each January, so the same number returns in a natural nine-year rhythm.`;
+  const url = `${process.env.NEXT_PUBLIC_APP_URL || ""}/personal-year/${number}`;
+  const body = `A Personal Year ${number} tends to carry a recurring theme: ${m.coreMeaning} It's an invitation to explore that energy through the year — a lens for reflection, not a fixed forecast. Your Personal Year shifts each January, so the same number returns in a natural nine-year rhythm.`;
   return (
     <>
       <ArticleJsonLd
-        headline={`Personal Year ${params.number}`}
+        headline={`Personal Year ${number}`}
         description={m.coreMeaning}
         url={url}
       />
       <SymbolPage
         kicker="Numerology · Personal Year"
-        headline={`Personal Year ${params.number}`}
+        headline={`Personal Year ${number}`}
         lead={m.coreMeaning}
         body={body}
         keyTraits={m.keywords}

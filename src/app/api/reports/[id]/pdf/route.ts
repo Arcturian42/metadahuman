@@ -12,8 +12,9 @@ export const maxDuration = 30;
  * storage upload) for the MVP — the DB holds the content; the PDF is a render of
  * it (PRD §19, react-pdf). Also records the download for analytics (PRD §28).
  */
-export async function GET(_req: Request, { params }: { params: { id: string } }) {
-  const report = await prisma.report.findUnique({ where: { id: params.id } });
+export async function GET(_req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const report = await prisma.report.findUnique({ where: { id } });
 
   if (!report || report.status !== "COMPLETED") {
     return new Response("Not found", { status: 404 });

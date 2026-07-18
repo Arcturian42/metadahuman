@@ -15,8 +15,9 @@ function load(number: string) {
   return getLifePathTemplate(n);
 }
 
-export function generateMetadata({ params }: { params: { number: string } }): Metadata {
-  const t = load(params.number);
+export async function generateMetadata({ params }: { params: Promise<{ number: string }> }): Promise<Metadata> {
+  const { number } = await params;
+  const t = load(number);
   if (!t) return { title: "Life Path — Personal Metadata" };
   const title = `Life Path ${t.number}: ${t.theme} — Meaning & Traits`;
   const description = t.summary;
@@ -29,8 +30,9 @@ export function generateMetadata({ params }: { params: { number: string } }): Me
   };
 }
 
-export default function LifePathPage({ params }: { params: { number: string } }) {
-  const t = load(params.number);
+export default async function LifePathPage({ params }: { params: Promise<{ number: string }> }) {
+  const { number } = await params;
+  const t = load(number);
   if (!t) notFound();
   const url = `${process.env.NEXT_PUBLIC_APP_URL || ""}/life-path/${t.number}`;
   return (
